@@ -34,12 +34,12 @@ func main()  {
 	if isMatch,_ := regexp.MatchString("^https","http://www.baidu.com");isMatch{
 		fmt.Println(isMatch)
 	}
-
 	r := gin.Default()
 
 	v2 := r.Group("/v2")
 	{
 		v2.POST("/ecapi.home.product.list",controllers.Home)
+		v2.POST("/ecapi.auth.social",controllers.Auth)
 	}
 	r.Run() // listen and serve on 0.0.0.0:8080
 
