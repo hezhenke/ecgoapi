@@ -40,6 +40,10 @@ func main()  {
 	{
 		v2.POST("/ecapi.home.product.list",controllers.Home)
 		v2.POST("/ecapi.auth.social",controllers.Auth)
+		v2.POST("/ecapi.site.get",controllers.GetSiteInfo)
+		v2.POST("/ecapi.config.get",controllers.GetAllConfig)
+		v2.POST("/ecapi.banner.list",controllers.GetBannerList)
+
 	}
 	r.Run() // listen and serve on 0.0.0.0:8080
 

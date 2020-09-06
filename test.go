@@ -56,7 +56,7 @@ func StartServer() {
 	http.ListenAndServe(":8080", nil)
 }
 
-func main() {
+func main2() {
 	StartServer()
 
 	tokenString := "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1aWQiOjEsImV4cCI6MTYwMDA3OTI3MiwicGxhdGZvcm0iOiJ3ZWNoYXRtaW5pcHJvZ3JhbSJ9.IZo8QOXF3J5HSMFRFQ5O8x9U-SYsMLrxcxu6BbKheT0"
