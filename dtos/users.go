@@ -12,11 +12,11 @@ type AuthRequest struct {
 }
 
 
-func CreateAuthDto(isNewUser bool,openid string,token string,user models.Users)map[string]interface{}{
+func CreateAuthDto(isNewUser bool,openid string,user models.Users)map[string]interface{}{
 	return map[string]interface{}{
 		"is_new_user":isNewUser,
 		"openid":openid,
-		"token":token,
+		"token":user.GenerateJWTToken(),
 		"user":user,
 	}
 }

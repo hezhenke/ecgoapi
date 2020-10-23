@@ -1,6 +1,10 @@
 package models
 
-import "time"
+import (
+	"github.com/dgrijalva/jwt-go"
+	"os"
+	"time"
+)
 
 type Users struct {
 	UserId	int	`gorm:"primary_key" json:"user_id"` //
@@ -37,4 +41,16 @@ type Users struct {
 	CreditLine	float32	`json:"credit_line"` //
 	PasswdQuestion	string	`json:"passwd_question"` //
 	PasswdAnswer	string	`json:"passwd_answer"` //
+}
+
+func (u *Users) GenerateJWTToken() string  {
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
+		"user_id": u.UserId,
+		"user_name":u.UserName,
+		"exp": time.Now().Unix() + 43200 * 60,
+		"platform":"wechatminiprogram",
+	})
+	tokenSecret := os.Getenv("TOKEN_SECRET")
+	tokenString,_ := token.SignedString([]byte(tokenSecret))
+	return tokenString
 }

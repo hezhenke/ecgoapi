@@ -10,7 +10,7 @@ import (
  * 首页商品列表
  */
 
-func GetHomeList(req dtos.HomeRequest)(hotProducts []models.Goods,recentlyProducts []models.Goods,goodProducts []models.Goods){
+func GetHomeList(req dtos.HomeRequest,userId int)(hotProducts []models.Goods,recentlyProducts []models.Goods,goodProducts []models.Goods){
 
 	database := infrastructure.GetDb()
 	mapCondition := make(map[string]interface{})

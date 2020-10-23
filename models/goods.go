@@ -1,6 +1,9 @@
 package models
 
-import "github.com/jinzhu/gorm"
+import (
+	"github.com/jinzhu/gorm"
+	"time"
+)
 
 type Goods struct {
 	GoodsId	int32	`gorm:"primary_key" json:"id"` //
@@ -49,6 +52,28 @@ type Goods struct {
 	IsCheck	int8	`json:"is_check"` //
 }
 var scope *gorm.Scope
+
+
+//获取活动价
+func (good *Goods) GetPromotePrice() float32  {
+	if good.PromotePrice == 0.0{
+		return 0.0
+	}
+	//获取当前时间戳
+	now := time.Now().Unix()
+	if now >= int64(good.PromoteStartDate) && now <= int64(good.PromoteEndDate) {
+		return good.PromotePrice
+	}
+	return 0.0
+}
+
+/**
+ * 1.如果有活动价优先返回活动价
+ * 2.如果用户已经登录了查看当前用户的会员等级
+ * 2.1 如果当前商品设置专门的会员等级价，返回该商品的等级价
+ * 2.2 如果没有专门设置，价格=当前等级下的折扣 * 商品的售卖价格
+ * 3. 如果没有登录或登录后没有命中会员等级，则返回商品的原始售卖价
+ */
 
 /*
 func (*Goods)TableName() string {

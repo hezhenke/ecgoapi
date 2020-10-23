@@ -37,21 +37,16 @@ func main()  {
 	}
 	r := gin.Default()
 
-	v2NoAuth := r.Group("/v2")
+	v2 := r.Group("/v2")
+	v2.Use(middlewares.UserLoaderMiddleware())
 	{
-		v2NoAuth.POST("/ecapi.home.product.list",controllers.Home)
-		v2NoAuth.POST("/ecapi.auth.social",controllers.Auth)
-		v2NoAuth.POST("/ecapi.site.get",controllers.GetSiteInfo)
-		v2NoAuth.POST("/ecapi.config.get",controllers.GetAllConfig)
-		//v2NoAuth.POST("/ecapi.banner.list",controllers.GetBannerList)
+		v2.POST("/ecapi.home.product.list",controllers.Home)
+		v2.POST("/ecapi.auth.social",controllers.Auth)
+		v2.POST("/ecapi.site.get",controllers.GetSiteInfo)
+		v2.POST("/ecapi.config.get",controllers.GetAllConfig)
+		v2.POST("/ecapi.banner.list",controllers.GetBannerList)
 
 	}
-	v2WithAuth := r.Group("/v2")
-	v2WithAuth.Use(middlewares.UserLoaderMiddleware())
-	{
-		v2WithAuth.POST("/ecapi.banner.list",controllers.GetBannerList)
-	}
-
 	r.Run() // listen and serve on 0.0.0.0:8080
 
 }

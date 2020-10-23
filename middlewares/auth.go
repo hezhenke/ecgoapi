@@ -29,10 +29,9 @@ func UserLoaderMiddleware() gin.HandlerFunc {
 		if tokenString != "" {
 			claims,err := utils.Decode(tokenString)
 			if err != nil{
-				c.Abort()
 				return
 			}
-			userId := uint(claims["uid"].(float64))
+			userId := uint(claims["user_id"].(float64))
 
 			if userId != 0 {
 				user := models.Users{}
@@ -41,9 +40,6 @@ func UserLoaderMiddleware() gin.HandlerFunc {
 				database.Preload("Roles").First(&user, userId)
 				c.Set("currentUser", user)
 				c.Set("currentUserId", user.UserId)
-				c.Next()
-			}else{
-				c.Abort()
 			}
 		}
 	}

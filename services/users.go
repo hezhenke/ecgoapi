@@ -5,7 +5,6 @@ import (
 	"ecshopGoApi/dtos"
 	"ecshopGoApi/infrastructure"
 	"ecshopGoApi/models"
-	"ecshopGoApi/utils"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -60,8 +59,7 @@ func Auth(req dtos.AuthRequest)(result map[string]interface{},err error){
 		//3.查询用户信息并返回
 		database := infrastructure.GetDb()
 		err = database.Model(&models.Users{}).First(&user,userId).Error
-		token,_ := utils.Encode(userId)
-		return dtos.CreateAuthDto(false,openId,token,user),err
+		return dtos.CreateAuthDto(false,openId,user),err
 	}
 	err = errors.New(fmt.Sprintf("Vendor错误：%d",req.Vendor))
 	return nil,err

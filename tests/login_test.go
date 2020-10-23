@@ -8,6 +8,7 @@ import (
 	"github.com/dgrijalva/jwt-go"
 	"log"
 	"testing"
+	"time"
 )
 
 func TestGetArea(t *testing.T)  {
@@ -54,4 +55,9 @@ func TestJwt(t *testing.T){
 	fmt.Println(string(destr))
 
 	fmt.Println(tokenString, err)
+}
+
+func TestPrice(t *testing.T){
+	now := time.Now().Unix()
+	fmt.Println(now)
 }
