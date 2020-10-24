@@ -33,6 +33,7 @@ func OpenDbConnection() *gorm.DB {
 	}
 	db.DB().SetMaxIdleConns(10)
 	db.LogMode(true)
+	db.SingularTable(true)
 	//设置默认表名前缀
 	gorm.DefaultTableNameHandler = func(db *gorm.DB, defaultTableName string) string {
 		return tablePrefix + defaultTableName

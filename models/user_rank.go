@@ -9,7 +9,3 @@ type UserRank struct {
 	ShowPrice int8
 	SpecialRank int8
 }
-
-func (*UserRank) TableName() string {
-	return "ecs_user_rank"
-}
