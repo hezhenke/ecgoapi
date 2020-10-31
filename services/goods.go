@@ -32,3 +32,20 @@ func GetHomeList(req dtos.HomeRequest,userId int)(hotProducts []models.Goods,rec
 
 	return hotProducts,recentlyProducts,goodProducts
 }
+
+// 获取单个商品的价格
+func getCurrentPrice(goods * models.Goods,userId int32) float32{
+	if goods == nil {
+		return 0.0
+	}
+	promotionPrice := goods.GetPromotePrice()
+	if promotionPrice > 0 {
+		return promotionPrice
+	}
+	memberPrice,err := GetMemberRankPrice(goods,userId)
+	if memberPrice > 0 && err == nil {
+		return memberPrice
+	}else{
+		return goods.ShopPrice
+	}
+}
